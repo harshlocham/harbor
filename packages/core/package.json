@@ -1,0 +1,43 @@
+{
+  "name": "@harbor/core",
+  "version": "0.0.0",
+  "description": "Core agent runtime for Harbor",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "clean": "rm -rf dist .tsbuild .turbo *.tsbuildinfo .tsbuildinfo",
+    "dev": "tsup --watch",
+    "lint": "eslint src --max-warnings 0",
+    "test": "vitest run",
+    "typecheck": "tsc -b --pretty false"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@harbor/providers": "workspace:*",
+    "@harbor/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}
