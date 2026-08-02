@@ -1,3 +1,4 @@
+import type { ToolError } from "../errors/tool-error.js";
 import type { RunContext } from "../runtime/context.js";
 import type { JsonObject } from "../types/json.js";
 
@@ -41,9 +42,19 @@ export interface ToolResult {
   content: string;
 
   /**
+   * Wall-clock execution duration in milliseconds.
+   */
+  durationMs: number;
+
+  /**
    * Whether execution failed.
    */
   isError?: boolean;
+
+  /**
+   * Structured failure details when `isError` is true.
+   */
+  error?: ToolError;
 }
 
 /**

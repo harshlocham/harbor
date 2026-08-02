@@ -24,6 +24,7 @@
     "dev": "tsup --watch",
     "lint": "eslint src --max-warnings 0",
     "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "typecheck": "tsc -b --pretty false"
   },
   "publishConfig": {
@@ -35,6 +36,7 @@
   },
   "devDependencies": {
     "@types/node": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
     "eslint": "catalog:",
     "tsup": "catalog:",
     "typescript": "catalog:",

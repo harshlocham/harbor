@@ -56,7 +56,11 @@ export function toolResultToMessage(result: ToolResult): Message {
     createdAt: Date.now(),
   };
   if (result.isError === true) {
-    message.metadata = { isError: true };
+    message.metadata = {
+      isError: true,
+      durationMs: result.durationMs,
+      ...(result.error !== undefined ? { errorCode: result.error.code } : {}),
+    };
   }
   return message;
 }

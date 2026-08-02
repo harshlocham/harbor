@@ -6,7 +6,7 @@ import { MaxIterationsExceededError } from "../errors/max-iterations-exceeded-er
 import { NotImplementedError } from "../errors/not-implemented-error.js";
 import type { Message } from "../message/types.js";
 import type { ProviderRequest } from "../provider/types.js";
-import type { Tool } from "../tool/types.js";
+import { ToolExecutor } from "../tool/executor.js";
 
 import type { RunContext } from "./context.js";
 import type { RuntimeEvent } from "./events.js";
@@ -17,7 +17,6 @@ import {
   toolResultToMessage,
 } from "./messages.js";
 import { TraceRecorder } from "./trace.js";
-import { executeToolCall, indexTools, toToolDefinitions } from "./tool-executor.js";
 import type { RunOptions, RunResult, RunStreamEvent } from "./types.js";
 
 const DEFAULT_MAX_ITERATIONS = 10;
@@ -70,8 +69,7 @@ export class Runtime {
     const context = createRunContext(runId, agent, options);
     const trace = new TraceRecorder(runId);
     const emit = createEmitter(options.onEvent ?? this.#defaults.onEvent);
-    const tools = agent.config.tools ?? [];
-    const toolsByName = indexTools(tools);
+    const toolExecutor = new ToolExecutor(agent.config.tools ?? []);
 
     const messages: Message[] = [];
     const append = (message: Message): void => {
@@ -93,7 +91,7 @@ export class Runtime {
         options.signal?.throwIfAborted();
         emit({ type: "iteration.start", iteration });
 
-        const request = buildProviderRequest(messages, agent, tools);
+        const request = buildProviderRequest(messages, agent, toolExecutor);
         emit({ type: "provider.request", request });
 
         const providerSpan = trace.startSpan("provider.generate", {
@@ -135,7 +133,7 @@ export class Runtime {
             toolCallId: toolCall.id,
           });
 
-          const toolResult = await executeToolCall(toolCall, toolsByName, context);
+          const toolResult = await toolExecutor.execute(toolCall, context);
           toolSpan.end(toolResult.isError === true ? toolResult.content : undefined);
 
           emit({ type: "tool.end", toolResult });
@@ -234,13 +232,14 @@ function createRunContext(runId: string, agent: Agent, options: RunOptions): Run
 function buildProviderRequest(
   messages: Message[],
   agent: Agent,
-  tools: readonly Tool[],
+  toolExecutor: ToolExecutor,
 ): ProviderRequest {
   const request: ProviderRequest = {
     messages: messages.map((message) => ({ ...message })),
   };
+  const tools = toolExecutor.definitions();
   if (tools.length > 0) {
-    request.tools = toToolDefinitions(tools);
+    request.tools = tools;
   }
   if (agent.config.model !== undefined) {
     request.model = agent.config.model;
