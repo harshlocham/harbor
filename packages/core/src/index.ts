@@ -7,13 +7,19 @@ export const PACKAGE_NAME = "@harbor/core" as const;
 
 export type { JsonObject, JsonPrimitive, JsonValue } from "./types/index.js";
 
-export { HarborError, NotImplementedError } from "./errors/index.js";
+export {
+  HarborError,
+  MaxIterationsExceededError,
+  NotImplementedError,
+  ToolValidationError,
+} from "./errors/index.js";
 
 export type { Message, MessageRole } from "./message/index.js";
 
-export type { ToolCall, ToolDefinition, ToolResult } from "./tool/index.js";
+export type { Tool, ToolCall, ToolDefinition, ToolResult } from "./tool/index.js";
 
 export type {
+  ModelProvider,
   ProviderFinishReason,
   ProviderRequest,
   ProviderResponse,
@@ -30,6 +36,10 @@ export type {
   RunState,
   RunStatus,
   RunStreamEvent,
+  RunTrace,
+  RuntimeConfig,
+  RuntimeEvent,
+  TraceSpan,
 } from "./runtime/index.js";
 export { Runtime } from "./runtime/index.js";
 

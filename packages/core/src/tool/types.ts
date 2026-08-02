@@ -1,3 +1,4 @@
+import type { RunContext } from "../runtime/context.js";
 import type { JsonObject } from "../types/json.js";
 
 /**
@@ -65,4 +66,17 @@ export interface ToolDefinition {
    * JSON-Schema-like parameter definition.
    */
   parameters: JsonObject;
+}
+
+/**
+ * Executable tool available to an agent.
+ */
+export interface Tool extends ToolDefinition {
+  /**
+   * Execute the tool with validated arguments.
+   *
+   * @param args - Tool arguments.
+   * @param context - Active run context.
+   */
+  execute(args: JsonObject, context: RunContext): Promise<unknown> | unknown;
 }

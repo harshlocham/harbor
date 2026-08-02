@@ -1,1 +1,1 @@
-export type { ToolCall, ToolDefinition, ToolResult } from "./types.js";
+export type { Tool, ToolCall, ToolDefinition, ToolResult } from "./types.js";

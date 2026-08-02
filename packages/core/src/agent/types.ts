@@ -1,4 +1,5 @@
-import type { ToolDefinition } from "../tool/types.js";
+import type { ModelProvider } from "../provider/model-provider.js";
+import type { Tool } from "../tool/types.js";
 import type { JsonObject } from "../types/json.js";
 
 /**
@@ -11,19 +12,29 @@ export interface AgentConfig {
   name: string;
 
   /**
+   * Model provider used for generation.
+   */
+  provider: ModelProvider;
+
+  /**
    * System-level instructions for the agent.
    */
   instructions?: string;
 
   /**
-   * Tools the agent may invoke.
+   * Executable tools the agent may invoke.
    */
-  tools?: ToolDefinition[];
+  tools?: Tool[];
 
   /**
    * Default model identifier for provider requests.
    */
   model?: string;
+
+  /**
+   * Default maximum model/tool loop iterations for runs of this agent.
+   */
+  maxIterations?: number;
 
   /**
    * Arbitrary provider-agnostic metadata.

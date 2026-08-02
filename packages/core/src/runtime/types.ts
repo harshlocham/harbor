@@ -1,8 +1,13 @@
+import type { Agent } from "../agent/agent.js";
 import type { HarborError } from "../errors/harbor-error.js";
 import type { Message } from "../message/types.js";
-import type { Session } from "../session/types.js";
 import type { ToolCall, ToolResult } from "../tool/types.js";
 import type { JsonObject } from "../types/json.js";
+
+import type { RuntimeEvent } from "./events.js";
+import type { RunTrace } from "./trace.js";
+
+export type { RunContext } from "./context.js";
 
 /**
  * Lifecycle status of a Harbor run.
@@ -57,48 +62,28 @@ export interface RunState {
 }
 
 /**
- * Contextual information available while a run executes.
- */
-export interface RunContext {
-  /**
-   * Unique run identifier.
-   */
-  runId: string;
-
-  /**
-   * Name of the agent executing the run.
-   */
-  agentName: string;
-
-  /**
-   * Optional session identifier.
-   */
-  sessionId?: string;
-
-  /**
-   * Abort signal for cooperative cancellation.
-   */
-  signal?: AbortSignal;
-
-  /**
-   * Arbitrary provider-agnostic metadata.
-   */
-  metadata?: JsonObject;
-}
-
-/**
- * Options for starting or resuming a run.
+ * Options for starting a run.
  */
 export interface RunOptions {
+  /**
+   * Agent to execute.
+   */
+  agent: Agent;
+
   /**
    * User input as plain text, a single message, or a message list.
    */
   input: string | Message | Message[];
 
   /**
-   * Optional session to continue.
+   * Optional session identifier to associate with the run.
    */
-  session?: Session;
+  sessionId?: string;
+
+  /**
+   * Maximum model/tool loop iterations. Defaults to `10`.
+   */
+  maxIterations?: number;
 
   /**
    * Abort signal for cooperative cancellation.
@@ -109,6 +94,11 @@ export interface RunOptions {
    * Arbitrary provider-agnostic metadata.
    */
   metadata?: JsonObject;
+
+  /**
+   * Optional listener for runtime events emitted during the run.
+   */
+  onEvent?: (event: RuntimeEvent) => void;
 }
 
 /**
@@ -139,6 +129,11 @@ export interface RunResult {
    * Error that caused the run to fail, when applicable.
    */
   error?: HarborError;
+
+  /**
+   * Trace spans recorded during the run.
+   */
+  trace?: RunTrace;
 }
 
 /**
