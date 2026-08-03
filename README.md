@@ -20,6 +20,10 @@
   <a href="./LICENSE">MIT License</a>
 </p>
 
+<p align="center">
+  <sub>Preview docs locally with <code>pnpm docs:dev</code>. Hosted docs: connect this repo in <a href="https://app.mintlify.com">Mintlify</a> (subdirectory <code>docs</code>) — see <a href="./CONTRIBUTING.md#publishing-mintlify-hosting">CONTRIBUTING</a>.</sub>
+</p>
+
 ---
 
 ## Features
@@ -273,7 +277,7 @@ try {
 | [`examples/tool-calling`](./examples/tool-calling) | Multiple tools and run events    |
 | [`examples/multi-agent`](./examples/multi-agent)   | Agents composing via nested runs |
 
-More detail in the Mintlify docs under [`docs/`](./docs) (`pnpm docs:dev` to preview). See also [`docs/examples/overview.mdx`](./docs/examples/overview.mdx).
+More detail in the Mintlify docs under [`docs/`](./docs). Preview with `pnpm docs:dev`. Publish via Mintlify (subdirectory `docs`) — see [CONTRIBUTING](./CONTRIBUTING.md#publishing-mintlify-hosting). Example catalog: [`docs/examples/overview.mdx`](./docs/examples/overview.mdx).
 
 ## Contributing
 

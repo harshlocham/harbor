@@ -77,9 +77,25 @@ pnpm --filter "./examples/*" typecheck
 Docs are a [Mintlify](https://mintlify.com) site under [`docs/`](./docs) (`docs.json` + MDX). Keep snippets aligned with the **current** public API — do not invent methods or types. Prefer patterns already used in `examples/`.
 
 ```sh
-pnpm docs:dev    # local preview (from docs/)
+pnpm docs:dev    # local preview (serves docs/)
 pnpm docs:check  # broken links + validate
 ```
+
+### Publishing (Mintlify hosting)
+
+Docs deploy from this repo via the Mintlify GitHub App — not from a custom GitHub Pages workflow.
+
+1. Push `docs/` to `main` on `https://github.com/harshlocham/harbor`.
+2. Sign in at [https://app.mintlify.com](https://app.mintlify.com) (or [mintlify.com/start](https://www.mintlify.com/start)).
+3. Connect **this existing repository** in [Git Settings](https://app.mintlify.com/settings/deployment/git-settings).
+4. Set the docs **subdirectory** to `docs` (where `docs.json` lives).
+5. Install the Mintlify GitHub App **from the dashboard** (not only from the GitHub Marketplace).
+6. Deploy. Copy the live URL from the dashboard Overview (typically `*.mintlify.app`).
+7. Optionally attach a custom domain under Mintlify domain settings.
+
+After the first deploy, update the root README “Docs” link to the live Mintlify URL.
+
+Manual redeploy: use **Deploy** in the [Mintlify dashboard](https://app.mintlify.com) if a push did not publish.
 
 ## Pull requests
 
