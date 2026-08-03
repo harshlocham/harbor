@@ -39,14 +39,14 @@ console.log(result.output?.content);
 
 ## Exports
 
-| Export | Description |
-| --- | --- |
-| `OpenAIProvider` | Chat Completions `ModelProvider` |
-| `OpenAIProviderOptions` | `apiKey`, `model`, `organization`, `baseURL`, optional `client` |
-| `toOpenAIMessages` / `toOpenAIMessage` | Harbor → OpenAI message mapping |
-| `fromOpenAIResponse` | OpenAI completion → Harbor assistant message |
-| `toOpenAITools` | Harbor tool definitions → OpenAI tools |
-| `toProviderError` / usage & finish-reason helpers | Error and response mapping |
+| Export                                            | Description                                                     |
+| ------------------------------------------------- | --------------------------------------------------------------- |
+| `OpenAIProvider`                                  | Chat Completions `ModelProvider`                                |
+| `OpenAIProviderOptions`                           | `apiKey`, `model`, `organization`, `baseURL`, optional `client` |
+| `toOpenAIMessages` / `toOpenAIMessage`            | Harbor → OpenAI message mapping                                 |
+| `fromOpenAIResponse`                              | OpenAI completion → Harbor assistant message                    |
+| `toOpenAITools`                                   | Harbor tool definitions → OpenAI tools                          |
+| `toProviderError` / usage & finish-reason helpers | Error and response mapping                                      |
 
 Also available as `@harborts/providers/openai`.
 

@@ -40,15 +40,15 @@ console.log(result.output?.content);
 
 ## What's included
 
-| Export | Description |
-| --- | --- |
-| `Agent` / `AgentConfig` | Agent configuration (instructions, tools, provider) |
-| `Runtime` | Iterative `run()` loop |
-| `Tool` / `ToolExecutor` | Tool definitions and execution |
-| `ModelProvider` / `MockProvider` | Provider interface + in-memory mock |
-| `Message` | Conversation message types |
-| `RunResult` / `RuntimeEvent` / `RunTrace` | Run outcomes, events, and spans |
-| `HarborError` and subclasses | Typed SDK errors |
+| Export                                    | Description                                         |
+| ----------------------------------------- | --------------------------------------------------- |
+| `Agent` / `AgentConfig`                   | Agent configuration (instructions, tools, provider) |
+| `Runtime`                                 | Iterative `run()` loop                              |
+| `Tool` / `ToolExecutor`                   | Tool definitions and execution                      |
+| `ModelProvider` / `MockProvider`          | Provider interface + in-memory mock                 |
+| `Message`                                 | Conversation message types                          |
+| `RunResult` / `RuntimeEvent` / `RunTrace` | Run outcomes, events, and spans                     |
+| `HarborError` and subclasses              | Typed SDK errors                                    |
 
 ## Limitations
 
