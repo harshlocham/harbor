@@ -91,8 +91,8 @@ pnpm --filter @harborts/example-quickstart start
 
 Harbor is a pnpm + Turbo monorepo. **Core never depends on a vendor SDK**; providers adapt vendors into Harbor types.
 
-| Package                                     | Role                                                             |
-| ------------------------------------------- | ---------------------------------------------------------------- |
+| Package                                       | Role                                                             |
+| --------------------------------------------- | ---------------------------------------------------------------- |
 | [`@harborts/core`](./packages/core)           | `Agent`, `Runtime`, tools, messages, provider interfaces, errors |
 | [`@harborts/providers`](./packages/providers) | `OpenAIProvider` and OpenAI message/tool mappers                 |
 | [`@harborts/utils`](./packages/utils)         | Shared utilities (stub today)                                    |

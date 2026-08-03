@@ -20,9 +20,9 @@ Workspace layout:
 
 | Path                 | Package                   |
 | -------------------- | ------------------------- |
-| `packages/core`      | `@harborts/core`            |
-| `packages/providers` | `@harborts/providers`       |
-| `packages/utils`     | `@harborts/utils`           |
+| `packages/core`      | `@harborts/core`          |
+| `packages/providers` | `@harborts/providers`     |
+| `packages/utils`     | `@harborts/utils`         |
 | `examples/*`         | Private runnable examples |
 
 **Dependency rule:** `@harborts/providers` may depend on `@harborts/core`. `@harborts/core` must never depend on `@harborts/providers` or vendor SDKs.
