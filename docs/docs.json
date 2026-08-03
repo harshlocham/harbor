@@ -1,0 +1,59 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Harbor",
+  "colors": {
+    "primary": "#0D9488",
+    "light": "#5EEAD4",
+    "dark": "#0B1F2A"
+  },
+  "favicon": "/favicon.svg",
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/harshlocham/harbor"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Quick Start",
+      "href": "/quickstart"
+    }
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/harshlocham/harbor"
+    }
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "Getting started",
+        "pages": ["index", "getting-started", "quickstart"]
+      },
+      {
+        "group": "Concepts",
+        "pages": ["agents", "runtime", "tools", "providers", "tracing"]
+      },
+      {
+        "group": "Examples",
+        "pages": [
+          "examples/overview",
+          "examples/quickstart",
+          "examples/weather",
+          "examples/tool-calling",
+          "examples/multi-agent"
+        ]
+      },
+      {
+        "group": "Reference",
+        "pages": ["api-overview", "faq", "roadmap"]
+      }
+    ]
+  }
+}

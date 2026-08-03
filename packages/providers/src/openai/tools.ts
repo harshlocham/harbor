@@ -17,9 +17,7 @@ export interface OpenAIChatToolDefinition {
  *
  * @param tools - Harbor tool definitions.
  */
-export function toOpenAITools(
-  tools: readonly ToolDefinition[],
-): OpenAIChatToolDefinition[] {
+export function toOpenAITools(tools: readonly ToolDefinition[]): OpenAIChatToolDefinition[] {
   return tools.map((tool) => ({
     type: "function" as const,
     function: {

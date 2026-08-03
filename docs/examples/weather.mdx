@@ -1,0 +1,64 @@
+---
+title: Weather example
+description: Weather agent that must call get_weather before answering.
+---
+
+A weather agent that must call a `get_weather` tool before answering. The forecast is mocked so you only need an OpenAI API key.
+
+## Run
+
+```bash
+pnpm --filter @harbor/example-weather start
+pnpm --filter @harbor/example-weather start -- Tokyo
+```
+
+## What it demonstrates
+
+- Tool registration with JSON-Schema-like parameters
+- The model/tool loop inside `Runtime.run()`
+- Optional `onEvent` listening for `tool.end`
+- Handling `RunResult.output`
+
+## Snippet
+
+```ts
+import { Agent, Runtime, type JsonObject, type Tool } from "@harbor/core";
+import { OpenAIProvider } from "@harbor/providers";
+
+const getWeather: Tool = {
+  name: "get_weather",
+  description: "Look up the current weather for a city.",
+  parameters: {
+    type: "object",
+    properties: {
+      city: { type: "string", description: "City name, e.g. Seattle" },
+    },
+    required: ["city"],
+  },
+  execute(args: JsonObject) {
+    const city = String(args["city"] ?? "")
+      .trim()
+      .toLowerCase();
+    return { city, tempC: 14, conditions: "light rain", unit: "C" };
+  },
+};
+
+const result = await new Runtime().run({
+  agent: new Agent({
+    name: "weather",
+    provider: new OpenAIProvider({ model: "gpt-4o-mini" }),
+    instructions: "Always call get_weather before answering. Reply in one short sentence.",
+    tools: [getWeather],
+  }),
+  input: "What is the weather in Seattle?",
+  onEvent(event) {
+    if (event.type === "tool.end") {
+      console.log("tool:", event.toolResult.name, "→", event.toolResult.content);
+    }
+  },
+});
+
+console.log(result.output?.content);
+```
+
+Source: [`examples/weather`](https://github.com/harshlocham/harbor/tree/main/examples/weather)

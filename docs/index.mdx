@@ -1,0 +1,95 @@
+---
+title: Introduction
+description: Harbor is a runtime-first TypeScript SDK for building reliable AI agents.
+---
+
+Harbor is an open-source, **runtime-first** AI Agent SDK for TypeScript.
+
+You configure an `Agent` (instructions, tools, provider), call `Runtime.run()`, and get a structured `RunResult` — without tying your application to a vendor SDK.
+
+## Why Harbor
+
+- **Runtime-first loop** — generate → tool → append until the model is done
+- **First-class tools** — validate and execute tools inside the runtime
+- **Provider abstraction** — swap `OpenAIProvider` for `MockProvider` in tests
+- **Events and tracing** — observe runs live and inspect `RunResult.trace`
+- **TypeScript-native** — strict types, dual ESM/CJS, Node.js 20+
+
+## Packages
+
+| Package             | Role                                                             |
+| ------------------- | ---------------------------------------------------------------- |
+| `@harbor/core`      | `Agent`, `Runtime`, tools, messages, provider interfaces, errors |
+| `@harbor/providers` | `OpenAIProvider` and OpenAI message/tool mappers                 |
+| `@harbor/utils`     | Shared utilities (stub today)                                    |
+
+Core never depends on a vendor SDK. Providers adapt vendors into Harbor types.
+
+## Architecture
+
+### Runtime loop
+
+```mermaid
+flowchart TD
+  startNode[Runtime.run] --> seed[Seed system and user messages]
+  seed --> iter[Iteration start]
+  iter --> gen[ModelProvider.generate]
+  gen --> appendAsst[Append assistant message]
+  appendAsst --> hasTools{Has tool calls?}
+  hasTools -->|no| done[Return RunResult completed]
+  hasTools -->|yes| exec[ToolExecutor.execute each call]
+  exec --> appendTool[Append tool result messages]
+  appendTool --> checkMax{Under maxIterations?}
+  checkMax -->|yes| iter
+  checkMax -->|no| fail[Throw MaxIterationsExceededError]
+```
+
+### Tool execution flow
+
+```mermaid
+flowchart LR
+  asst[Assistant message with toolCalls] --> exec[ToolExecutor]
+  exec --> validate[Lookup and validate args]
+  validate --> runTool[tool.execute]
+  runTool --> result[ToolResult]
+  result --> msg[Append tool message]
+```
+
+### Provider abstraction
+
+```mermaid
+flowchart TB
+  app[Your application] --> agent[Agent]
+  agent --> runtime[Runtime.run]
+  runtime --> mp[ModelProvider interface]
+  mp --> openai[OpenAIProvider]
+  mp --> mock[MockProvider]
+  subgraph corePkg ["@harbor/core"]
+    agent
+    runtime
+    mp
+  end
+  subgraph providersPkg ["@harbor/providers"]
+    openai
+  end
+```
+
+## Limitations
+
+These APIs exist but are **not implemented** yet and throw `NotImplementedError`:
+
+- `Runtime.stream`, `Runtime.resume`, `Runtime.cancel`
+- `OpenAIProvider.stream`
+
+`Session` is a public **type** only — Harbor does not persist sessions. `@harbor/utils` is a stub.
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Getting started" icon="rocket" href="/getting-started">
+    Install Harbor and understand the mental model.
+  </Card>
+  <Card title="Quick Start" icon="play" href="/quickstart">
+    Build your first agent with a tool in minutes.
+  </Card>
+</CardGroup>

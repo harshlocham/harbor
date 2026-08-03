@@ -1,9 +1,32 @@
 {
   "name": "@harbor/core",
   "version": "0.0.0",
-  "description": "Core agent runtime for Harbor",
+  "description": "Runtime-first AI agent SDK for TypeScript — Agent, Runtime, tools, and provider-agnostic types",
   "license": "MIT",
   "type": "module",
+  "keywords": [
+    "ai",
+    "agents",
+    "llm",
+    "typescript",
+    "runtime",
+    "tools",
+    "openai",
+    "harbor"
+  ],
+  "homepage": "https://github.com/harshlocham/harbor#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harshlocham/harbor.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/harshlocham/harbor/issues"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/harshlocham"
+  },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",

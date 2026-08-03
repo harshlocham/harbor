@@ -1,9 +1,29 @@
 {
   "name": "@harbor/utils",
   "version": "0.0.0",
-  "description": "Shared utilities for Harbor",
+  "description": "Shared utilities for the Harbor AI agent SDK",
   "license": "MIT",
   "type": "module",
+  "keywords": [
+    "ai",
+    "agents",
+    "typescript",
+    "utilities",
+    "harbor"
+  ],
+  "homepage": "https://github.com/harshlocham/harbor#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harshlocham/harbor.git",
+    "directory": "packages/utils"
+  },
+  "bugs": {
+    "url": "https://github.com/harshlocham/harbor/issues"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/harshlocham"
+  },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",

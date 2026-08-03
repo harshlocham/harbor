@@ -1,0 +1,29 @@
+---
+title: Roadmap
+description: Planned Harbor features and current stubs.
+---
+
+Harbor is under active development. This roadmap reflects **honest** gaps relative to the current public API.
+
+## In progress / planned
+
+- [ ] **Streaming** — `Runtime.stream` and `OpenAIProvider.stream` (both throw `NotImplementedError` today)
+- [ ] **Run resume / cancel** — `Runtime.resume` and `Runtime.cancel` (use `AbortSignal` for in-flight cancel today)
+- [ ] **Durable sessions** — persist beyond the `Session` type; load/save transcripts
+- [ ] **Additional providers** — Anthropic and others as first-class adapters
+- [ ] **Memory** — higher-level memory helpers on top of messages
+- [ ] **Richer observability** — export traces beyond in-memory `RunResult.trace`
+- [ ] **Expand `@harbor/utils`** — currently a stub package
+
+## Available today
+
+- `Runtime.run()` iterative agent loop
+- Tools via `AgentConfig.tools` and `ToolExecutor`
+- `OpenAIProvider.generate()` and OpenAI mappers
+- `MockProvider` for tests
+- Runtime events (`onEvent`) and `RunResult.trace`
+- Multi-agent composition via nested `Runtime.run()` (see [Multi-agent example](/examples/multi-agent))
+
+## Suggest a feature
+
+Open an issue on [GitHub](https://github.com/harshlocham/harbor/issues).

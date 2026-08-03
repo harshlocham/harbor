@@ -1,0 +1,75 @@
+---
+title: Tracing
+description: Inspect RunResult.trace spans for provider and tool timing.
+---
+
+Harbor records a lightweight `RunTrace` on every `Runtime.run()`. There is no separate tracer API — read spans from `RunResult.trace`.
+
+## Shape
+
+```ts
+import type { RunTrace, TraceSpan } from "@harbor/core";
+
+// RunTrace: { runId, spans: TraceSpan[] }
+// TraceSpan: { name, startTime, endTime?, attributes?, status?, error? }
+```
+
+Spans commonly include:
+
+- `provider.generate` — attributes may include `iteration` and `model`
+- `tool.execute` — attributes may include `toolName` and `toolCallId`
+
+## Example
+
+```ts
+import { Agent, Runtime, type Tool } from "@harbor/core";
+import { OpenAIProvider } from "@harbor/providers";
+
+const add: Tool = {
+  name: "add",
+  description: "Add two numbers.",
+  parameters: {
+    type: "object",
+    properties: {
+      a: { type: "number" },
+      b: { type: "number" },
+    },
+    required: ["a", "b"],
+  },
+  execute: (args) => Number(args["a"]) + Number(args["b"]),
+};
+
+const result = await new Runtime().run({
+  agent: new Agent({
+    name: "traced",
+    provider: new OpenAIProvider({ model: "gpt-4o-mini" }),
+    instructions: "Use tools for arithmetic.",
+    tools: [add],
+  }),
+  input: "What is 19 + 23?",
+});
+
+for (const span of result.trace?.spans ?? []) {
+  const duration = span.endTime !== undefined ? span.endTime - span.startTime : undefined;
+  console.log({
+    name: span.name,
+    durationMs: duration,
+    status: span.status,
+    attributes: span.attributes,
+    error: span.error,
+  });
+}
+```
+
+## Events vs tracing
+
+| Mechanism      | When           | Purpose            |
+| -------------- | -------------- | ------------------ |
+| `onEvent`      | During the run | Live notifications |
+| `result.trace` | After the run  | Durable span list  |
+
+See [`examples/tool-calling`](/examples/tool-calling), which prints tool events and `result.trace?.spans.length`.
+
+## Limitations
+
+Traces are in-memory on the `RunResult` only. Harbor does not export to OpenTelemetry or third-party APM yet.

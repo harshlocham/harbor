@@ -2,6 +2,8 @@
 
 Composes multiple Harbor agents: a coordinator delegates to researcher and writer specialists through tools that each call `Runtime.run()`.
 
+Docs: [Agents](../../docs/agents.mdx) · [Examples overview](../../docs/examples/overview.mdx)
+
 ## What it demonstrates
 
 - Multiple `Agent` instances sharing one `OpenAIProvider` and `Runtime`

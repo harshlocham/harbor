@@ -2,6 +2,8 @@
 
 Shows an agent with multiple tools (`add` and `celsius_to_fahrenheit`) and how Harbor executes tool calls inside `Runtime.run()`.
 
+Docs: [Tools](../../docs/tools.mdx) · [Tracing](../../docs/tracing.mdx)
+
 ## What it demonstrates
 
 - Registering more than one tool on an `Agent`

@@ -17,7 +17,9 @@
     "format:check": "prettier --check .",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "pnpm build && changeset publish"
+    "release": "pnpm build && changeset publish",
+    "docs:dev": "cd docs && mint dev",
+    "docs:check": "cd docs && mint broken-links && mint validate"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.5",
@@ -25,6 +27,7 @@
     "@types/node": "^22.15.30",
     "eslint": "^9.28.0",
     "eslint-config-prettier": "^10.1.5",
+    "mint": "^4.2.772",
     "prettier": "^3.5.3",
     "tsup": "^8.5.0",
     "turbo": "^2.5.4",

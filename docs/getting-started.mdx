@@ -1,0 +1,73 @@
+---
+title: Getting Started
+description: Install Harbor and learn the Agent → Runtime → RunResult mental model.
+---
+
+Harbor is a runtime-first AI Agent SDK for TypeScript. You configure an `Agent`, call `Runtime.run()`, and get a `RunResult`.
+
+## Requirements
+
+- Node.js **20+**
+- An OpenAI API key for `OpenAIProvider` (or use `MockProvider` in tests)
+
+## Install
+
+```bash
+pnpm add @harbor/core @harbor/providers
+# or: npm install @harbor/core @harbor/providers
+```
+
+Set your API key:
+
+```bash
+export OPENAI_API_KEY=sk-...
+```
+
+`OpenAIProvider` reads `apiKey` from constructor options first, then `process.env.OPENAI_API_KEY`.
+
+## Mental model
+
+1. **Agent** — name, instructions, tools, and a `ModelProvider`
+2. **Runtime** — owns the iterative generate/tool loop
+3. **RunResult** — status, messages, output, and optional trace
+
+```ts
+import { Agent, Runtime } from "@harbor/core";
+import { OpenAIProvider } from "@harbor/providers";
+
+const agent = new Agent({
+  name: "assistant",
+  provider: new OpenAIProvider({ model: "gpt-4o-mini" }),
+  instructions: "Be concise and accurate.",
+});
+
+const result = await new Runtime().run({
+  agent,
+  input: "Say hello in five words.",
+});
+
+console.log(result.output?.content);
+```
+
+## What a run does
+
+1. Seeds a system message from `instructions` (when set) and user message(s) from `input`
+2. Calls `provider.generate()` with the transcript and tool definitions
+3. If the assistant requests tools, executes them and loops
+4. Returns `RunResult` with `messages`, `output`, and `trace`
+
+## Monorepo examples
+
+From the Harbor repository:
+
+```bash
+pnpm install && pnpm build
+export OPENAI_API_KEY=sk-...
+pnpm --filter @harbor/example-quickstart start
+```
+
+## Next steps
+
+- [Quick Start](/quickstart) — full install → tool → run walkthrough
+- [Runtime](/runtime) — options, events, iteration limits
+- [Tools](/tools) — parameter schemas and errors

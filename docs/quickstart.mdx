@@ -1,0 +1,116 @@
+---
+title: Quick Start
+description: Install Harbor, register a tool, run an agent, and print the result.
+---
+
+This guide walks through a complete Harbor agent: install packages, create an `Agent`, register a tool, call `Runtime.run()`, and print the final result.
+
+## 1. Install
+
+```bash
+pnpm add @harbor/core @harbor/providers
+```
+
+```bash
+export OPENAI_API_KEY=sk-...
+```
+
+## 2. Create a tool
+
+```ts
+import type { Tool } from "@harbor/core";
+
+const getTime: Tool = {
+  name: "get_time",
+  description: "Return the current UTC time as an ISO-8601 string.",
+  parameters: {
+    type: "object",
+    properties: {},
+  },
+  execute() {
+    return new Date().toISOString();
+  },
+};
+```
+
+## 3. Create an Agent
+
+```ts
+import { Agent } from "@harbor/core";
+import { OpenAIProvider } from "@harbor/providers";
+
+const agent = new Agent({
+  name: "quickstart",
+  provider: new OpenAIProvider({ model: "gpt-4o-mini" }),
+  instructions:
+    "You are a helpful assistant. When asked for the time, call get_time and answer briefly.",
+  tools: [getTime],
+});
+```
+
+## 4. Create a Runtime and run
+
+```ts
+import { Runtime } from "@harbor/core";
+
+const runtime = new Runtime();
+
+const result = await runtime.run({
+  agent,
+  input: "What time is it in UTC right now?",
+});
+```
+
+## 5. Print the result
+
+```ts
+console.log("status:", result.status);
+console.log("output:", result.output?.content);
+console.log("messages:", result.messages.length);
+```
+
+## Full example
+
+```ts
+import { Agent, Runtime, type Tool } from "@harbor/core";
+import { OpenAIProvider } from "@harbor/providers";
+
+const getTime: Tool = {
+  name: "get_time",
+  description: "Return the current UTC time as an ISO-8601 string.",
+  parameters: { type: "object", properties: {} },
+  execute() {
+    return new Date().toISOString();
+  },
+};
+
+const agent = new Agent({
+  name: "quickstart",
+  provider: new OpenAIProvider({ model: "gpt-4o-mini" }),
+  instructions:
+    "You are a helpful assistant. When asked for the time, call get_time and answer briefly.",
+  tools: [getTime],
+});
+
+const result = await new Runtime().run({
+  agent,
+  input: "What time is it in UTC right now?",
+});
+
+console.log(result.status);
+console.log(result.output?.content);
+```
+
+## Run from the monorepo
+
+```bash
+pnpm install && pnpm build
+export OPENAI_API_KEY=sk-...
+pnpm --filter @harbor/example-quickstart start
+```
+
+Source: [`examples/quickstart`](https://github.com/harshlocham/harbor/tree/main/examples/quickstart)
+
+## Limitations
+
+Streaming is not available yet (`Runtime.stream` / `OpenAIProvider.stream` throw `NotImplementedError`). Use `Runtime.run()` for complete responses.

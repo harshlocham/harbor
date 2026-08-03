@@ -1,0 +1,88 @@
+---
+title: Agents
+description: Configure Harbor agents with instructions, tools, and a ModelProvider.
+---
+
+An `Agent` is **configuration only**. Execution always goes through `Runtime`.
+
+```ts
+import { Agent, type Tool } from "@harbor/core";
+import { OpenAIProvider } from "@harbor/providers";
+
+const tools: Tool[] = []; // optional
+
+const agent = new Agent({
+  name: "support",
+  provider: new OpenAIProvider({ model: "gpt-4o-mini" }),
+  instructions: "You help users with concise, accurate answers.",
+  tools,
+  model: "gpt-4o-mini",
+  maxIterations: 6,
+  metadata: { team: "dx" },
+});
+
+console.log(agent.name); // "support"
+console.log(agent.config.instructions);
+```
+
+`agent.config` is a frozen shallow copy of the config you passed in.
+
+## AgentConfig
+
+| Field           | Required | Description                             |
+| --------------- | -------- | --------------------------------------- |
+| `name`          | yes      | Display / context name                  |
+| `provider`      | yes      | `ModelProvider` implementation          |
+| `instructions`  | no       | Becomes a system message at run start   |
+| `tools`         | no       | Executable tools available to the model |
+| `model`         | no       | Default model id on provider requests   |
+| `maxIterations` | no       | Default loop limit for this agent       |
+| `metadata`      | no       | Forwarded on provider requests when set |
+
+## Multi-agent composition
+
+Harbor has no separate multi-agent runtime. Compose agents by nesting `Runtime.run()` inside tools, or by chaining runs in your application.
+
+```ts
+import { Agent, Runtime, type JsonObject, type Tool } from "@harbor/core";
+import { OpenAIProvider } from "@harbor/providers";
+
+const provider = new OpenAIProvider({ model: "gpt-4o-mini" });
+const runtime = new Runtime();
+
+const researcher = new Agent({
+  name: "researcher",
+  provider,
+  instructions: "Return 2-3 factual bullet points.",
+});
+
+const askResearcher: Tool = {
+  name: "ask_researcher",
+  description: "Ask the researcher agent for notes on a topic.",
+  parameters: {
+    type: "object",
+    properties: { topic: { type: "string" } },
+    required: ["topic"],
+  },
+  async execute(args: JsonObject) {
+    const result = await runtime.run({
+      agent: researcher,
+      input: String(args["topic"]),
+    });
+    return result.output?.content ?? "";
+  },
+};
+
+const coordinator = new Agent({
+  name: "coordinator",
+  provider,
+  instructions: "Use ask_researcher, then summarize the notes.",
+  tools: [askResearcher],
+});
+```
+
+See the [multi-agent example](/examples/multi-agent).
+
+## Limitations
+
+Agents do not stream tokens. Persistence and memory are not built into `Agent` — store `RunResult.messages` yourself if you need history across runs.

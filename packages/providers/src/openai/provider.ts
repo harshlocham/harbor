@@ -93,13 +93,10 @@ export class OpenAIProvider implements ModelProvider {
 
     const apiKey = options.apiKey ?? process.env["OPENAI_API_KEY"];
     if (apiKey === undefined || apiKey.length === 0) {
-      throw new ProviderError(
-        "OpenAI API key is required. Pass apiKey or set OPENAI_API_KEY.",
-        {
-          code: "provider_authentication",
-          provider: this.id,
-        },
-      );
+      throw new ProviderError("OpenAI API key is required. Pass apiKey or set OPENAI_API_KEY.", {
+        code: "provider_authentication",
+        provider: this.id,
+      });
     }
 
     this.#client = new OpenAI({
@@ -184,9 +181,7 @@ export class OpenAIProvider implements ModelProvider {
   }
 }
 
-function toHarborProviderResponse(
-  completion: OpenAIChatCompletionResponse,
-): ProviderResponse {
+function toHarborProviderResponse(completion: OpenAIChatCompletionResponse): ProviderResponse {
   const message = fromOpenAIResponse(completion);
   const choice = completion.choices[0];
   const response: ProviderResponse = {

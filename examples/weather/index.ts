@@ -23,7 +23,9 @@ const getWeather: Tool = {
     required: ["city"],
   },
   execute(args: JsonObject) {
-    const city = String(args["city"] ?? "").trim().toLowerCase();
+    const city = String(args["city"] ?? "")
+      .trim()
+      .toLowerCase();
     const forecast = FORECASTS[city] ?? { tempC: 18, conditions: "partly cloudy" };
     return { city, ...forecast, unit: "C" };
   },

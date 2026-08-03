@@ -1,0 +1,50 @@
+---
+title: FAQ
+description: Common questions about Harbor's design and current capabilities.
+---
+
+## How is Harbor different from LangGraph / orchestration frameworks?
+
+Harbor is **runtime-first**: a single iterative loop (`generate` → optional tools → append) owned by `Runtime`. It does not ship a graph DSL, checkpoint store, or workflow engine. You compose multi-step or multi-agent behavior in TypeScript (including nested `Runtime.run()` calls).
+
+## Do I have to use OpenAI?
+
+No. Agents accept any `ModelProvider`. Use `OpenAIProvider` for production OpenAI Chat Completions, `MockProvider` for tests, or implement the interface for another vendor in a separate package. Keep vendor types out of `@harbor/core`.
+
+## Where does the system prompt go?
+
+Set `AgentConfig.instructions`. At the start of `Runtime.run()`, Harbor prepends a system message when instructions are non-empty.
+
+## How do tools get validated?
+
+`ToolExecutor` checks that the tool exists and that arguments satisfy a lightweight JSON-Schema-like check (required keys and basic types). Invalid args become an error `ToolResult` for the model rather than crashing the process.
+
+## Is streaming supported?
+
+Not yet for production runs. `Runtime.stream` and `OpenAIProvider.stream` throw `NotImplementedError`. `MockProvider.stream` exists for tests. See the [Roadmap](/roadmap).
+
+## Can I cancel a run?
+
+Pass an `AbortSignal` in `RunOptions.signal`. `Runtime.cancel(runId)` is not implemented.
+
+## What about sessions / memory?
+
+`Session` is a public **type** for a durable transcript shape. Harbor does not yet persist sessions or provide a memory module. You can store `RunResult.messages` yourself.
+
+## Why did my run throw instead of returning `status: "failed"`?
+
+On errors (including max iterations), the runtime emits a `run.end` event with a failed result and **rethrows** the error. Always `try/catch` around `run()` when you need structured failure handling.
+
+## Which Node version is required?
+
+Node.js **20+**.
+
+## How do I contribute or release?
+
+See [CONTRIBUTING.md](https://github.com/harshlocham/harbor/blob/main/CONTRIBUTING.md). Releases use [Changesets](https://github.com/changesets/changesets) and the GitHub `release` workflow.
+
+## How do I preview these docs locally?
+
+```bash
+pnpm docs:dev
+```

@@ -2,6 +2,8 @@
 
 A weather agent that must call a `get_weather` tool before answering. The forecast is mocked so you only need an OpenAI API key.
 
+Docs: [Tools](../../docs/tools.mdx) · [Runtime](../../docs/runtime.mdx)
+
 ## What it demonstrates
 
 - Tool registration with JSON-Schema-like parameters

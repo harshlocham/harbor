@@ -1,11 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import {
-  fromOpenAIResponse,
-  OpenAIProvider,
-  PACKAGE_NAME,
-  toOpenAIMessages,
-} from "./index.js";
+import { fromOpenAIResponse, OpenAIProvider, PACKAGE_NAME, toOpenAIMessages } from "./index.js";
 
 describe("@harbor/providers", () => {
   it("exports PACKAGE_NAME, OpenAIProvider, and OpenAI mappers", () => {

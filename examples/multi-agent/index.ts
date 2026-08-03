@@ -13,15 +13,13 @@ const runtime = new Runtime();
 const researcher = new Agent({
   name: "researcher",
   provider,
-  instructions:
-    "You research briefly. Return 2-3 factual bullet points, no fluff.",
+  instructions: "You research briefly. Return 2-3 factual bullet points, no fluff.",
 });
 
 const writer = new Agent({
   name: "writer",
   provider,
-  instructions:
-    "You turn research notes into one polished paragraph for a general audience.",
+  instructions: "You turn research notes into one polished paragraph for a general audience.",
 });
 
 const askResearcher: Tool = {

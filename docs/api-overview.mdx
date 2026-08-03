@@ -1,0 +1,124 @@
+---
+title: API Overview
+description: Public Harbor symbols — Agent, Runtime, Tool, ModelProvider, Session, and Trace.
+---
+
+This page summarizes Harbor's **current public API**. Do not assume unimplemented methods work.
+
+## Agent
+
+```ts
+import { Agent, type AgentConfig } from "@harbor/core";
+```
+
+| Member              | Description                    |
+| ------------------- | ------------------------------ |
+| `new Agent(config)` | Freeze and store `AgentConfig` |
+| `agent.name`        | Display name                   |
+| `agent.config`      | Readonly config                |
+
+See [Agents](/agents).
+
+## Runtime
+
+```ts
+import { Runtime, type RunOptions, type RunResult, type RuntimeEvent } from "@harbor/core";
+```
+
+| Member                    | Status                       |
+| ------------------------- | ---------------------------- |
+| `run(options)`            | **Implemented**              |
+| `stream(options)`         | Throws `NotImplementedError` |
+| `resume(runId, options?)` | Throws `NotImplementedError` |
+| `cancel(runId)`           | Throws `NotImplementedError` |
+
+`RunResult` includes `runId`, `status`, `messages`, optional `output`, `error`, and `trace`.
+
+See [Runtime](/runtime).
+
+## Tool
+
+```ts
+import {
+  ToolExecutor,
+  type Tool,
+  type ToolCall,
+  type ToolDefinition,
+  type ToolResult,
+} from "@harbor/core";
+```
+
+| Symbol         | Description                                                   |
+| -------------- | ------------------------------------------------------------- |
+| `Tool`         | `ToolDefinition` + `execute(args, context)`                   |
+| `ToolCall`     | `{ id, name, arguments }`                                     |
+| `ToolResult`   | `{ toolCallId, name, content, durationMs, isError?, error? }` |
+| `ToolExecutor` | Lookup, validate, execute tools for a run                     |
+
+See [Tools](/tools).
+
+## ModelProvider
+
+```ts
+import {
+  MockProvider,
+  type ModelProvider,
+  type ProviderRequest,
+  type ProviderResponse,
+} from "@harbor/core";
+import { OpenAIProvider } from "@harbor/providers";
+```
+
+| Symbol                  | Status                                                      |
+| ----------------------- | ----------------------------------------------------------- |
+| `ModelProvider`         | Interface in core                                           |
+| `MockProvider`          | Implemented (including test `stream`)                       |
+| `OpenAIProvider`        | `generate` implemented; `stream` not                        |
+| `OpenAIProviderOptions` | `apiKey?`, `model?`, `organization?`, `baseURL?`, `client?` |
+
+See [Providers](/providers).
+
+## Session
+
+```ts
+import type { Session } from "@harbor/core";
+```
+
+`Session` is a **type only**:
+
+```ts
+interface Session {
+  id: string;
+  messages: Message[];
+  metadata?: JsonObject;
+  createdAt: number;
+  updatedAt: number;
+}
+```
+
+Harbor does not persist or load sessions. You can store `RunResult.messages` yourself and pass history via `RunOptions.input` as `Message[]`.
+
+## Trace
+
+```ts
+import type { RunTrace, TraceSpan } from "@harbor/core";
+```
+
+| Symbol      | Description                                                   |
+| ----------- | ------------------------------------------------------------- |
+| `RunTrace`  | `{ runId, spans }` on `RunResult.trace`                       |
+| `TraceSpan` | `{ name, startTime, endTime?, attributes?, status?, error? }` |
+
+Common span names: `provider.generate`, `tool.execute`.
+
+See [Tracing](/tracing).
+
+## Errors
+
+| Error                               | When                                        |
+| ----------------------------------- | ------------------------------------------- |
+| `HarborError`                       | Base class                                  |
+| `ProviderError`                     | Provider/auth/rate-limit/transport failures |
+| `ToolError` / `ToolValidationError` | Tool failures / bad args                    |
+| `MaxIterationsExceededError`        | Loop exceeded `maxIterations`               |
+| `NotImplementedError`               | Unimplemented APIs (stream, resume, cancel) |

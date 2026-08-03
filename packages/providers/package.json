@@ -1,9 +1,31 @@
 {
   "name": "@harbor/providers",
   "version": "0.0.0",
-  "description": "Model and tool providers for Harbor",
+  "description": "Model provider adapters for Harbor — OpenAI Chat Completions and message/tool mappers",
   "license": "MIT",
   "type": "module",
+  "keywords": [
+    "ai",
+    "agents",
+    "llm",
+    "typescript",
+    "openai",
+    "provider",
+    "harbor"
+  ],
+  "homepage": "https://github.com/harshlocham/harbor/tree/main/docs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harshlocham/harbor.git",
+    "directory": "packages/providers"
+  },
+  "bugs": {
+    "url": "https://github.com/harshlocham/harbor/issues"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/harshlocham"
+  },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",

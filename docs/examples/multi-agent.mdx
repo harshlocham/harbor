@@ -1,0 +1,76 @@
+---
+title: Multi-agent example
+description: Compose agents by nesting Runtime.run inside tools.
+---
+
+Composes multiple Harbor agents: a coordinator delegates to researcher and writer specialists through tools that each call `Runtime.run()`.
+
+Harbor has no dedicated multi-agent runtime — this pattern uses the public API only.
+
+## Run
+
+```bash
+pnpm --filter @harbor/example-multi-agent start
+pnpm --filter @harbor/example-multi-agent start -- "edge caching for APIs"
+```
+
+## What it demonstrates
+
+- Multiple `Agent` instances sharing one `OpenAIProvider` and `Runtime`
+- Tool-based handoff between agents
+- Nested `Runtime.run()` calls from tool `execute` handlers
+- Handling the coordinator's final `RunResult`
+
+## Snippet
+
+```ts
+import { Agent, Runtime, type JsonObject, type Tool } from "@harbor/core";
+import { OpenAIProvider } from "@harbor/providers";
+
+const provider = new OpenAIProvider({ model: "gpt-4o-mini" });
+const runtime = new Runtime();
+
+const researcher = new Agent({
+  name: "researcher",
+  provider,
+  instructions: "Return 2-3 factual bullet points, no fluff.",
+});
+
+const askResearcher: Tool = {
+  name: "ask_researcher",
+  description: "Ask the researcher agent for short notes on a topic.",
+  parameters: {
+    type: "object",
+    properties: { topic: { type: "string" } },
+    required: ["topic"],
+  },
+  async execute(args: JsonObject) {
+    const result = await runtime.run({
+      agent: researcher,
+      input: String(args["topic"]),
+    });
+    return result.output?.content ?? "";
+  },
+};
+
+const coordinator = new Agent({
+  name: "coordinator",
+  provider,
+  instructions: "First call ask_researcher, then summarize the notes briefly.",
+  tools: [askResearcher],
+  maxIterations: 8,
+});
+
+const result = await runtime.run({
+  agent: coordinator,
+  input: "Produce a short explainer about structural typing in TypeScript",
+});
+
+console.log(result.output?.content);
+```
+
+Source: [`examples/multi-agent`](https://github.com/harshlocham/harbor/tree/main/examples/multi-agent)
+
+## Limitations
+
+Nested runs each consume their own iteration budget. There is no shared checkpoint or resume across agents yet.

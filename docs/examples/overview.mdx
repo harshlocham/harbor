@@ -1,0 +1,32 @@
+---
+title: Examples overview
+description: Runnable Harbor examples in the monorepo.
+---
+
+Runnable packages under [`examples/`](https://github.com/harshlocham/harbor/tree/main/examples). Each depends on workspace `@harbor/core` and `@harbor/providers`, uses only the public API, and starts with `pnpm start` (via `tsx`).
+
+## Setup
+
+From the repository root:
+
+```bash
+pnpm install
+pnpm build
+export OPENAI_API_KEY=sk-...
+```
+
+## Catalog
+
+| Example                                | Command                                            | Demonstrates                     |
+| -------------------------------------- | -------------------------------------------------- | -------------------------------- |
+| [Quickstart](/examples/quickstart)     | `pnpm --filter @harbor/example-quickstart start`   | Agent, one tool, `Runtime.run()` |
+| [Weather](/examples/weather)           | `pnpm --filter @harbor/example-weather start`      | Tool loop + `onEvent`            |
+| [Tool calling](/examples/tool-calling) | `pnpm --filter @harbor/example-tool-calling start` | Multiple tools, events, trace    |
+| [Multi-agent](/examples/multi-agent)   | `pnpm --filter @harbor/example-multi-agent start`  | Nested `Runtime.run()` via tools |
+
+Optional args:
+
+```bash
+pnpm --filter @harbor/example-weather start -- Tokyo
+pnpm --filter @harbor/example-multi-agent start -- "edge caching for APIs"
+```

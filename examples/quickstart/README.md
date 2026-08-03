@@ -2,6 +2,8 @@
 
 The smallest end-to-end Harbor example: an `Agent` with `OpenAIProvider`, one tool, `Runtime.run()`, and printing the result.
 
+Docs: [Getting started](../../docs/getting-started.mdx)
+
 ## What it demonstrates
 
 - Constructing `OpenAIProvider` (reads `OPENAI_API_KEY`)
