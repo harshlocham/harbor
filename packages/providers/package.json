@@ -36,7 +36,8 @@
   },
   "dependencies": {
     "@harbor/core": "workspace:*",
-    "@harbor/utils": "workspace:*"
+    "@harbor/utils": "workspace:*",
+    "openai": "^4.104.0"
   },
   "devDependencies": {
     "@types/node": "catalog:",

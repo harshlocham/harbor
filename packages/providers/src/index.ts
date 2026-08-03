@@ -5,7 +5,16 @@
 /** Package name constant. */
 export const PACKAGE_NAME = "@harbor/providers" as const;
 
-export { fromOpenAIResponse, toOpenAIMessage, toOpenAIMessages } from "./openai/index.js";
+export {
+  fromOpenAIResponse,
+  mapOpenAIFinishReason,
+  mapOpenAIUsage,
+  OpenAIProvider,
+  toOpenAIMessage,
+  toOpenAIMessages,
+  toOpenAITools,
+  toProviderError,
+} from "./openai/index.js";
 export type {
   OpenAIChatCompletionChoice,
   OpenAIChatCompletionResponse,
@@ -13,4 +22,6 @@ export type {
   OpenAIChatMessage,
   OpenAIChatRole,
   OpenAIChatToolCall,
+  OpenAIChatToolDefinition,
+  OpenAIProviderOptions,
 } from "./openai/index.js";
