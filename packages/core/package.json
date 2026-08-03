@@ -1,5 +1,5 @@
 {
-  "name": "@harbor/core",
+  "name": "@harborts/core",
   "version": "0.0.0",
   "description": "Runtime-first AI agent SDK for TypeScript — Agent, Runtime, tools, and provider-agnostic types",
   "license": "MIT",
@@ -54,7 +54,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@harbor/utils": "workspace:*"
+    "@harborts/utils": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "catalog:",

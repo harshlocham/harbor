@@ -8,8 +8,8 @@ A weather agent that must call a `get_weather` tool before answering. The foreca
 ## Run
 
 ```bash
-pnpm --filter @harbor/example-weather start
-pnpm --filter @harbor/example-weather start -- Tokyo
+pnpm --filter @harborts/example-weather start
+pnpm --filter @harborts/example-weather start -- Tokyo
 ```
 
 ## What it demonstrates
@@ -22,8 +22,8 @@ pnpm --filter @harbor/example-weather start -- Tokyo
 ## Snippet
 
 ```ts
-import { Agent, Runtime, type JsonObject, type Tool } from "@harbor/core";
-import { OpenAIProvider } from "@harbor/providers";
+import { Agent, Runtime, type JsonObject, type Tool } from "@harborts/core";
+import { OpenAIProvider } from "@harborts/providers";
 
 const getWeather: Tool = {
   name: "get_weather",

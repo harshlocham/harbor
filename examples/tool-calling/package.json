@@ -1,5 +1,5 @@
 {
-  "name": "@harbor/example-tool-calling",
+  "name": "@harborts/example-tool-calling",
   "private": true,
   "type": "module",
   "scripts": {
@@ -7,8 +7,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@harbor/core": "workspace:*",
-    "@harbor/providers": "workspace:*"
+    "@harborts/core": "workspace:*",
+    "@harborts/providers": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "catalog:",

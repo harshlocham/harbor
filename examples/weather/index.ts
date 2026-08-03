@@ -1,5 +1,5 @@
-import { Agent, Runtime, type JsonObject, type Tool } from "@harbor/core";
-import { OpenAIProvider } from "@harbor/providers";
+import { Agent, Runtime, type JsonObject, type Tool } from "@harborts/core";
+import { OpenAIProvider } from "@harborts/providers";
 
 /**
  * Weather agent that must call get_weather before answering.

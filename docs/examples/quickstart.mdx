@@ -10,7 +10,7 @@ The smallest end-to-end Harbor example: an `Agent` with `OpenAIProvider`, one to
 ```bash
 pnpm install && pnpm build
 export OPENAI_API_KEY=sk-...
-pnpm --filter @harbor/example-quickstart start
+pnpm --filter @harborts/example-quickstart start
 ```
 
 ## What it demonstrates
@@ -23,8 +23,8 @@ pnpm --filter @harbor/example-quickstart start
 ## Snippet
 
 ```ts
-import { Agent, Runtime, type Tool } from "@harbor/core";
-import { OpenAIProvider } from "@harbor/providers";
+import { Agent, Runtime, type Tool } from "@harborts/core";
+import { OpenAIProvider } from "@harborts/providers";
 
 const getTime: Tool = {
   name: "get_time",

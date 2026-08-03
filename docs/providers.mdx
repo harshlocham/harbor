@@ -3,7 +3,7 @@ title: Providers
 description: Use ModelProvider, OpenAIProvider, and MockProvider without coupling core to vendors.
 ---
 
-Harbor talks to models through the `ModelProvider` interface in `@harbor/core`. Vendor SDKs live only in `@harbor/providers` (or your own adapter package).
+Harbor talks to models through the `ModelProvider` interface in `@harborts/core`. Vendor SDKs live only in `@harborts/providers` (or your own adapter package).
 
 ## Provider abstraction
 
@@ -17,8 +17,8 @@ flowchart TB
 ```
 
 ```text
-@harbor/providers ──depends on──▶ @harbor/core
-@harbor/core      ──must not──▶  @harbor/providers
+@harborts/providers ──depends on──▶ @harborts/core
+@harborts/core      ──must not──▶  @harborts/providers
 ```
 
 ## ModelProvider
@@ -34,8 +34,8 @@ Implementations provide:
 ## OpenAI
 
 ```ts
-import { OpenAIProvider } from "@harbor/providers";
-// or: import { OpenAIProvider } from "@harbor/providers/openai";
+import { OpenAIProvider } from "@harborts/providers";
+// or: import { OpenAIProvider } from "@harborts/providers/openai";
 
 const provider = new OpenAIProvider({
   apiKey: process.env.OPENAI_API_KEY, // optional if env is set
@@ -67,7 +67,7 @@ Lower-level mappers are also exported: `toOpenAIMessages`, `fromOpenAIResponse`,
 ## Mock provider (tests)
 
 ```ts
-import { Agent, MockProvider, Runtime } from "@harbor/core";
+import { Agent, MockProvider, Runtime } from "@harborts/core";
 
 const provider = new MockProvider({
   responses: [

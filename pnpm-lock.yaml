@@ -68,10 +68,10 @@ importers:
 
   examples/multi-agent:
     dependencies:
-      '@harbor/core':
+      '@harborts/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@harbor/providers':
+      '@harborts/providers':
         specifier: workspace:*
         version: link:../../packages/providers
     devDependencies:
@@ -87,10 +87,10 @@ importers:
 
   examples/quickstart:
     dependencies:
-      '@harbor/core':
+      '@harborts/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@harbor/providers':
+      '@harborts/providers':
         specifier: workspace:*
         version: link:../../packages/providers
     devDependencies:
@@ -106,10 +106,10 @@ importers:
 
   examples/tool-calling:
     dependencies:
-      '@harbor/core':
+      '@harborts/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@harbor/providers':
+      '@harborts/providers':
         specifier: workspace:*
         version: link:../../packages/providers
     devDependencies:
@@ -125,10 +125,10 @@ importers:
 
   examples/weather:
     dependencies:
-      '@harbor/core':
+      '@harborts/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@harbor/providers':
+      '@harborts/providers':
         specifier: workspace:*
         version: link:../../packages/providers
     devDependencies:
@@ -144,7 +144,7 @@ importers:
 
   packages/core:
     dependencies:
-      '@harbor/utils':
+      '@harborts/utils':
         specifier: workspace:*
         version: link:../utils
     devDependencies:
@@ -169,10 +169,10 @@ importers:
 
   packages/providers:
     dependencies:
-      '@harbor/core':
+      '@harborts/core':
         specifier: workspace:*
         version: link:../core
-      '@harbor/utils':
+      '@harborts/utils':
         specifier: workspace:*
         version: link:../utils
       openai:

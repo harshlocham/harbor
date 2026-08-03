@@ -8,7 +8,7 @@ Harbor records a lightweight `RunTrace` on every `Runtime.run()`. There is no se
 ## Shape
 
 ```ts
-import type { RunTrace, TraceSpan } from "@harbor/core";
+import type { RunTrace, TraceSpan } from "@harborts/core";
 
 // RunTrace: { runId, spans: TraceSpan[] }
 // TraceSpan: { name, startTime, endTime?, attributes?, status?, error? }
@@ -22,8 +22,8 @@ Spans commonly include:
 ## Example
 
 ```ts
-import { Agent, Runtime, type Tool } from "@harbor/core";
-import { OpenAIProvider } from "@harbor/providers";
+import { Agent, Runtime, type Tool } from "@harborts/core";
+import { OpenAIProvider } from "@harborts/providers";
 
 const add: Tool = {
   name: "add",

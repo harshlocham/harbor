@@ -6,8 +6,8 @@ description: Configure Harbor agents with instructions, tools, and a ModelProvid
 An `Agent` is **configuration only**. Execution always goes through `Runtime`.
 
 ```ts
-import { Agent, type Tool } from "@harbor/core";
-import { OpenAIProvider } from "@harbor/providers";
+import { Agent, type Tool } from "@harborts/core";
+import { OpenAIProvider } from "@harborts/providers";
 
 const tools: Tool[] = []; // optional
 
@@ -44,8 +44,8 @@ console.log(agent.config.instructions);
 Harbor has no separate multi-agent runtime. Compose agents by nesting `Runtime.run()` inside tools, or by chaining runs in your application.
 
 ```ts
-import { Agent, Runtime, type JsonObject, type Tool } from "@harbor/core";
-import { OpenAIProvider } from "@harbor/providers";
+import { Agent, Runtime, type JsonObject, type Tool } from "@harborts/core";
+import { OpenAIProvider } from "@harborts/providers";
 
 const provider = new OpenAIProvider({ model: "gpt-4o-mini" });
 const runtime = new Runtime();

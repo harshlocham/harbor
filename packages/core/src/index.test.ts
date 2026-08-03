@@ -2,9 +2,9 @@ import { describe, expect, it } from "vitest";
 
 import { Agent, MockProvider, PACKAGE_NAME } from "./index.js";
 
-describe("@harbor/core", () => {
+describe("@harborts/core", () => {
   it("exports PACKAGE_NAME", () => {
-    expect(PACKAGE_NAME).toBe("@harbor/core");
+    expect(PACKAGE_NAME).toBe("@harborts/core");
   });
 
   it("constructs an Agent with config", () => {

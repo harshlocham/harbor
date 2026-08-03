@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 
-import type { ProviderRequest } from "@harbor/core";
-import { NotImplementedError, ProviderError } from "@harbor/core";
+import type { ProviderRequest } from "@harborts/core";
+import { NotImplementedError, ProviderError } from "@harborts/core";
 
 import { OpenAIProvider } from "./provider.js";
 

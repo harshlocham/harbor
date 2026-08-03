@@ -10,8 +10,8 @@ Harbor has no dedicated multi-agent runtime — this pattern uses the public API
 ## Run
 
 ```bash
-pnpm --filter @harbor/example-multi-agent start
-pnpm --filter @harbor/example-multi-agent start -- "edge caching for APIs"
+pnpm --filter @harborts/example-multi-agent start
+pnpm --filter @harborts/example-multi-agent start -- "edge caching for APIs"
 ```
 
 ## What it demonstrates
@@ -24,8 +24,8 @@ pnpm --filter @harbor/example-multi-agent start -- "edge caching for APIs"
 ## Snippet
 
 ```ts
-import { Agent, Runtime, type JsonObject, type Tool } from "@harbor/core";
-import { OpenAIProvider } from "@harbor/providers";
+import { Agent, Runtime, type JsonObject, type Tool } from "@harborts/core";
+import { OpenAIProvider } from "@harborts/providers";
 
 const provider = new OpenAIProvider({ model: "gpt-4o-mini" });
 const runtime = new Runtime();

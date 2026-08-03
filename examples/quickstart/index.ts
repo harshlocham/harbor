@@ -1,5 +1,5 @@
-import { Agent, Runtime, type Tool } from "@harbor/core";
-import { OpenAIProvider } from "@harbor/providers";
+import { Agent, Runtime, type Tool } from "@harborts/core";
+import { OpenAIProvider } from "@harborts/providers";
 
 /**
  * Quickstart: create an agent, register a tool, run it, print the result.

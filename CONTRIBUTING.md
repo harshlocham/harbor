@@ -20,12 +20,12 @@ Workspace layout:
 
 | Path                 | Package                   |
 | -------------------- | ------------------------- |
-| `packages/core`      | `@harbor/core`            |
-| `packages/providers` | `@harbor/providers`       |
-| `packages/utils`     | `@harbor/utils`           |
+| `packages/core`      | `@harborts/core`            |
+| `packages/providers` | `@harborts/providers`       |
+| `packages/utils`     | `@harborts/utils`           |
 | `examples/*`         | Private runnable examples |
 
-**Dependency rule:** `@harbor/providers` may depend on `@harbor/core`. `@harbor/core` must never depend on `@harbor/providers` or vendor SDKs.
+**Dependency rule:** `@harborts/providers` may depend on `@harborts/core`. `@harborts/core` must never depend on `@harborts/providers` or vendor SDKs.
 
 ## Build
 
@@ -44,7 +44,7 @@ pnpm test
 Vitest runs per package via Turbo. For core coverage:
 
 ```sh
-pnpm --filter @harbor/core test:coverage
+pnpm --filter @harborts/core test:coverage
 ```
 
 ## Lint, typecheck, format
@@ -63,7 +63,7 @@ Examples need a built workspace and (for OpenAI) an API key:
 ```sh
 pnpm build
 export OPENAI_API_KEY=sk-...
-pnpm --filter @harbor/example-quickstart start
+pnpm --filter @harborts/example-quickstart start
 ```
 
 Typecheck examples:
@@ -101,7 +101,7 @@ Manual redeploy: use **Deploy** in the [Mintlify dashboard](https://app.mintlify
 
 - Keep changes focused; do not modify runtime behavior unless the PR is explicitly about the runtime.
 - Add or update Vitest coverage for behavioral changes.
-- Preserve provider isolation (no OpenAI types in `@harbor/core`).
+- Preserve provider isolation (no OpenAI types in `@harborts/core`).
 - Run `pnpm build`, `pnpm test`, and `pnpm lint` before opening a PR.
 - Update docs/examples when you change public surface area.
 
@@ -124,7 +124,7 @@ Harbor uses [Changesets](https://github.com/changesets/changesets).
    pnpm release            # build + changeset publish
    ```
 
-Publishing requires `NPM_TOKEN` (and OIDC/`id-token` permissions as configured in Actions). Packages are published with `"access": "public"` under the `@harbor` scope.
+Publishing requires `NPM_TOKEN` (and OIDC/`id-token` permissions as configured in Actions). Packages are published with `"access": "public"` under the `@harborts` scope.
 
 ## Questions
 

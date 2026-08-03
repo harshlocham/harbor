@@ -1,5 +1,5 @@
-import type { ProviderErrorCode, ProviderFinishReason, ProviderUsage } from "@harbor/core";
-import { ProviderError } from "@harbor/core";
+import type { ProviderErrorCode, ProviderFinishReason, ProviderUsage } from "@harborts/core";
+import { ProviderError } from "@harborts/core";
 
 import type { OpenAIChatCompletionUsage } from "./types.js";
 

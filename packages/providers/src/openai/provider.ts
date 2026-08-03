@@ -8,8 +8,8 @@ import type {
   ProviderResponse,
   ProviderResponseFormat,
   ProviderStreamEvent,
-} from "@harbor/core";
-import { NotImplementedError, ProviderError } from "@harbor/core";
+} from "@harborts/core";
+import { NotImplementedError, ProviderError } from "@harborts/core";
 
 import { mapOpenAIFinishReason, mapOpenAIUsage, toProviderError } from "./errors.js";
 import { fromOpenAIResponse, toOpenAIMessages } from "./messages.js";

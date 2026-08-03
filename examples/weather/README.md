@@ -22,11 +22,11 @@ export OPENAI_API_KEY=sk-...
 ## Run
 
 ```sh
-pnpm --filter @harbor/example-weather start
+pnpm --filter @harborts/example-weather start
 ```
 
 Pass a city as an argument (defaults to Seattle):
 
 ```sh
-pnpm --filter @harbor/example-weather start -- Tokyo
+pnpm --filter @harborts/example-weather start -- Tokyo
 ```

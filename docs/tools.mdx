@@ -19,7 +19,7 @@ flowchart LR
 ## Defining a tool
 
 ```ts
-import type { JsonObject, Tool } from "@harbor/core";
+import type { JsonObject, Tool } from "@harborts/core";
 
 const celsiusToFahrenheit: Tool = {
   name: "celsius_to_fahrenheit",
@@ -42,8 +42,8 @@ const celsiusToFahrenheit: Tool = {
 ## Registration
 
 ```ts
-import { Agent } from "@harbor/core";
-import { OpenAIProvider } from "@harbor/providers";
+import { Agent } from "@harborts/core";
+import { OpenAIProvider } from "@harborts/providers";
 
 const agent = new Agent({
   name: "tools",
@@ -62,7 +62,7 @@ Successful results are JSON-stringified (or stringified primitives) into `ToolRe
 ## Using ToolExecutor directly
 
 ```ts
-import { ToolExecutor, type ToolCall } from "@harbor/core";
+import { ToolExecutor, type ToolCall } from "@harborts/core";
 
 const executor = new ToolExecutor([celsiusToFahrenheit]);
 
@@ -84,8 +84,8 @@ console.log(toolResult.durationMs);
 ## Observing tool calls
 
 ```ts
-import { Agent, Runtime } from "@harbor/core";
-import { OpenAIProvider } from "@harbor/providers";
+import { Agent, Runtime } from "@harborts/core";
+import { OpenAIProvider } from "@harborts/providers";
 
 const runtime = new Runtime();
 const agent = new Agent({

@@ -21,5 +21,5 @@ export OPENAI_API_KEY=sk-...
 ## Run
 
 ```sh
-pnpm --filter @harbor/example-tool-calling start
+pnpm --filter @harborts/example-tool-calling start
 ```

@@ -33,14 +33,14 @@
 - **Provider abstraction** — talk to models through `ModelProvider`; swap OpenAI for mocks in tests
 - **Events** — observe runs with `onEvent` (`tool.start`, `provider.response`, …)
 - **Tracing** — every run returns `RunResult.trace` with provider and tool spans
-- **OpenAI included** — production `OpenAIProvider` in `@harbor/providers`
+- **OpenAI included** — production `OpenAIProvider` in `@harborts/providers`
 - **TypeScript-native** — strict types, dual ESM/CJS builds, Node.js 20+
 
 ## Installation
 
 ```sh
-pnpm add @harbor/core @harbor/providers
-# or: npm install @harbor/core @harbor/providers
+pnpm add @harborts/core @harborts/providers
+# or: npm install @harborts/core @harborts/providers
 ```
 
 Set an API key for the OpenAI provider:
@@ -52,8 +52,8 @@ export OPENAI_API_KEY=sk-...
 ## Quick Start
 
 ```ts
-import { Agent, Runtime, type Tool } from "@harbor/core";
-import { OpenAIProvider } from "@harbor/providers";
+import { Agent, Runtime, type Tool } from "@harborts/core";
+import { OpenAIProvider } from "@harborts/providers";
 
 const getTime: Tool = {
   name: "get_time",
@@ -84,7 +84,7 @@ Runnable copy: [`examples/quickstart`](./examples/quickstart).
 ```sh
 pnpm install && pnpm build
 export OPENAI_API_KEY=sk-...
-pnpm --filter @harbor/example-quickstart start
+pnpm --filter @harborts/example-quickstart start
 ```
 
 ## Architecture overview
@@ -93,9 +93,9 @@ Harbor is a pnpm + Turbo monorepo. **Core never depends on a vendor SDK**; provi
 
 | Package                                     | Role                                                             |
 | ------------------------------------------- | ---------------------------------------------------------------- |
-| [`@harbor/core`](./packages/core)           | `Agent`, `Runtime`, tools, messages, provider interfaces, errors |
-| [`@harbor/providers`](./packages/providers) | `OpenAIProvider` and OpenAI message/tool mappers                 |
-| [`@harbor/utils`](./packages/utils)         | Shared utilities (stub today)                                    |
+| [`@harborts/core`](./packages/core)           | `Agent`, `Runtime`, tools, messages, provider interfaces, errors |
+| [`@harborts/providers`](./packages/providers) | `OpenAIProvider` and OpenAI message/tool mappers                 |
+| [`@harborts/utils`](./packages/utils)         | Shared utilities (stub today)                                    |
 
 ```text
 Your app
@@ -118,8 +118,8 @@ Your app
 ## Agent example
 
 ```ts
-import { Agent } from "@harbor/core";
-import { OpenAIProvider } from "@harbor/providers";
+import { Agent } from "@harborts/core";
+import { OpenAIProvider } from "@harborts/providers";
 
 const agent = new Agent({
   name: "assistant",
@@ -133,7 +133,7 @@ const agent = new Agent({
 ## Tool example
 
 ```ts
-import type { JsonObject, Tool } from "@harbor/core";
+import type { JsonObject, Tool } from "@harborts/core";
 
 const add: Tool = {
   name: "add",
@@ -174,9 +174,9 @@ flowchart TD
 ## Provider abstraction
 
 ```ts
-import type { ModelProvider } from "@harbor/core";
-import { MockProvider } from "@harbor/core";
-import { OpenAIProvider } from "@harbor/providers";
+import type { ModelProvider } from "@harborts/core";
+import { MockProvider } from "@harborts/core";
+import { OpenAIProvider } from "@harborts/providers";
 
 // Production
 const openai: ModelProvider = new OpenAIProvider({
@@ -190,7 +190,7 @@ const mock: ModelProvider = new MockProvider({
 });
 ```
 
-Core defines `ModelProvider`. Vendor SDKs stay inside `@harbor/providers`.
+Core defines `ModelProvider`. Vendor SDKs stay inside `@harborts/providers`.
 
 ## Tracing
 
@@ -244,7 +244,7 @@ Emitted types include `run.start`, `run.end`, `iteration.start` / `end`, `provid
 | `HarborError`                       | Base class for Harbor failures                                            |
 
 ```ts
-import { HarborError, MaxIterationsExceededError } from "@harbor/core";
+import { HarborError, MaxIterationsExceededError } from "@harborts/core";
 
 try {
   await runtime.run({ agent, input: "…" });
@@ -266,7 +266,7 @@ try {
 - [ ] Durable session persistence (beyond the `Session` type)
 - [ ] Additional providers (Anthropic, etc.)
 - [ ] Memory and richer observability exporters
-- [ ] Expand `@harbor/utils`
+- [ ] Expand `@harborts/utils`
 
 ## Examples
 

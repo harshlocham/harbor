@@ -1,4 +1,4 @@
-import type { ToolDefinition } from "@harbor/core";
+import type { ToolDefinition } from "@harborts/core";
 
 /**
  * OpenAI Chat Completions tool definition (function calling).

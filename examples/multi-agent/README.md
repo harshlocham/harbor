@@ -22,11 +22,11 @@ export OPENAI_API_KEY=sk-...
 ## Run
 
 ```sh
-pnpm --filter @harbor/example-multi-agent start
+pnpm --filter @harborts/example-multi-agent start
 ```
 
 Optional topic argument:
 
 ```sh
-pnpm --filter @harbor/example-multi-agent start -- "edge caching for APIs"
+pnpm --filter @harborts/example-multi-agent start -- "edge caching for APIs"
 ```

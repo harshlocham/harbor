@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import type { Message } from "@harbor/core";
+import type { Message } from "@harborts/core";
 
 import { fromOpenAIResponse, toOpenAIMessages } from "./messages.js";
 import type { OpenAIChatCompletionResponse } from "./types.js";

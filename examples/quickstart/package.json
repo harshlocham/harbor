@@ -1,5 +1,5 @@
 {
-  "name": "@harbor/example-quickstart",
+  "name": "@harborts/example-quickstart",
   "private": true,
   "type": "module",
   "scripts": {
@@ -7,8 +7,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@harbor/core": "workspace:*",
-    "@harbor/providers": "workspace:*"
+    "@harborts/core": "workspace:*",
+    "@harborts/providers": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "catalog:",

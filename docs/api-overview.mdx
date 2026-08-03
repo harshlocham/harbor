@@ -8,7 +8,7 @@ This page summarizes Harbor's **current public API**. Do not assume unimplemente
 ## Agent
 
 ```ts
-import { Agent, type AgentConfig } from "@harbor/core";
+import { Agent, type AgentConfig } from "@harborts/core";
 ```
 
 | Member              | Description                    |
@@ -22,7 +22,7 @@ See [Agents](/agents).
 ## Runtime
 
 ```ts
-import { Runtime, type RunOptions, type RunResult, type RuntimeEvent } from "@harbor/core";
+import { Runtime, type RunOptions, type RunResult, type RuntimeEvent } from "@harborts/core";
 ```
 
 | Member                    | Status                       |
@@ -45,7 +45,7 @@ import {
   type ToolCall,
   type ToolDefinition,
   type ToolResult,
-} from "@harbor/core";
+} from "@harborts/core";
 ```
 
 | Symbol         | Description                                                   |
@@ -65,8 +65,8 @@ import {
   type ModelProvider,
   type ProviderRequest,
   type ProviderResponse,
-} from "@harbor/core";
-import { OpenAIProvider } from "@harbor/providers";
+} from "@harborts/core";
+import { OpenAIProvider } from "@harborts/providers";
 ```
 
 | Symbol                  | Status                                                      |
@@ -81,7 +81,7 @@ See [Providers](/providers).
 ## Session
 
 ```ts
-import type { Session } from "@harbor/core";
+import type { Session } from "@harborts/core";
 ```
 
 `Session` is a **type only**:
@@ -101,7 +101,7 @@ Harbor does not persist or load sessions. You can store `RunResult.messages` you
 ## Trace
 
 ```ts
-import type { RunTrace, TraceSpan } from "@harbor/core";
+import type { RunTrace, TraceSpan } from "@harborts/core";
 ```
 
 | Symbol      | Description                                                   |

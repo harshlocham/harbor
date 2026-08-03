@@ -13,8 +13,8 @@ Harbor is a runtime-first AI Agent SDK for TypeScript. You configure an `Agent`,
 ## Install
 
 ```bash
-pnpm add @harbor/core @harbor/providers
-# or: npm install @harbor/core @harbor/providers
+pnpm add @harborts/core @harborts/providers
+# or: npm install @harborts/core @harborts/providers
 ```
 
 Set your API key:
@@ -32,8 +32,8 @@ export OPENAI_API_KEY=sk-...
 3. **RunResult** — status, messages, output, and optional trace
 
 ```ts
-import { Agent, Runtime } from "@harbor/core";
-import { OpenAIProvider } from "@harbor/providers";
+import { Agent, Runtime } from "@harborts/core";
+import { OpenAIProvider } from "@harborts/providers";
 
 const agent = new Agent({
   name: "assistant",
@@ -63,7 +63,7 @@ From the Harbor repository:
 ```bash
 pnpm install && pnpm build
 export OPENAI_API_KEY=sk-...
-pnpm --filter @harbor/example-quickstart start
+pnpm --filter @harborts/example-quickstart start
 ```
 
 ## Next steps

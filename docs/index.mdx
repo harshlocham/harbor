@@ -19,9 +19,9 @@ You configure an `Agent` (instructions, tools, provider), call `Runtime.run()`, 
 
 | Package             | Role                                                             |
 | ------------------- | ---------------------------------------------------------------- |
-| `@harbor/core`      | `Agent`, `Runtime`, tools, messages, provider interfaces, errors |
-| `@harbor/providers` | `OpenAIProvider` and OpenAI message/tool mappers                 |
-| `@harbor/utils`     | Shared utilities (stub today)                                    |
+| `@harborts/core`      | `Agent`, `Runtime`, tools, messages, provider interfaces, errors |
+| `@harborts/providers` | `OpenAIProvider` and OpenAI message/tool mappers                 |
+| `@harborts/utils`     | Shared utilities (stub today)                                    |
 
 Core never depends on a vendor SDK. Providers adapt vendors into Harbor types.
 
@@ -64,12 +64,12 @@ flowchart TB
   runtime --> mp[ModelProvider interface]
   mp --> openai[OpenAIProvider]
   mp --> mock[MockProvider]
-  subgraph corePkg ["@harbor/core"]
+  subgraph corePkg ["@harborts/core"]
     agent
     runtime
     mp
   end
-  subgraph providersPkg ["@harbor/providers"]
+  subgraph providersPkg ["@harborts/providers"]
     openai
   end
 ```
@@ -81,7 +81,7 @@ These APIs exist but are **not implemented** yet and throw `NotImplementedError`
 - `Runtime.stream`, `Runtime.resume`, `Runtime.cancel`
 - `OpenAIProvider.stream`
 
-`Session` is a public **type** only — Harbor does not persist sessions. `@harbor/utils` is a stub.
+`Session` is a public **type** only — Harbor does not persist sessions. `@harborts/utils` is a stub.
 
 ## Next steps
 

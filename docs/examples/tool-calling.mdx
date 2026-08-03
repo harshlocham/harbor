@@ -8,7 +8,7 @@ Shows an agent with multiple tools (`add` and `celsius_to_fahrenheit`) and how H
 ## Run
 
 ```bash
-pnpm --filter @harbor/example-tool-calling start
+pnpm --filter @harborts/example-tool-calling start
 ```
 
 ## What it demonstrates
@@ -20,8 +20,8 @@ pnpm --filter @harbor/example-tool-calling start
 ## Snippet
 
 ```ts
-import { Agent, Runtime, type JsonObject, type Tool } from "@harbor/core";
-import { OpenAIProvider } from "@harbor/providers";
+import { Agent, Runtime, type JsonObject, type Tool } from "@harborts/core";
+import { OpenAIProvider } from "@harborts/providers";
 
 const add: Tool = {
   name: "add",

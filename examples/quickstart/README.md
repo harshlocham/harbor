@@ -24,7 +24,7 @@ export OPENAI_API_KEY=sk-...
 ## Run
 
 ```sh
-pnpm --filter @harbor/example-quickstart start
+pnpm --filter @harborts/example-quickstart start
 ```
 
 Or from this directory:

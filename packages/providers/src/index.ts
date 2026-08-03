@@ -1,9 +1,9 @@
 /**
- * @harbor/providers — provider adapters and vendor mappers for Harbor.
+ * @harborts/providers — provider adapters and vendor mappers for Harbor.
  */
 
 /** Package name constant. */
-export const PACKAGE_NAME = "@harbor/providers" as const;
+export const PACKAGE_NAME = "@harborts/providers" as const;
 
 export {
   fromOpenAIResponse,

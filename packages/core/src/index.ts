@@ -1,9 +1,9 @@
 /**
- * @harbor/core — runtime-first AI agent SDK foundation.
+ * @harborts/core — runtime-first AI agent SDK foundation.
  */
 
 /** Package name constant. */
-export const PACKAGE_NAME = "@harbor/core" as const;
+export const PACKAGE_NAME = "@harborts/core" as const;
 
 export type { JsonObject, JsonPrimitive, JsonValue } from "./types/index.js";
 

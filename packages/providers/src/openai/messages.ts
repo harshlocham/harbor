@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 
-import type { JsonObject, JsonValue, Message } from "@harbor/core";
+import type { JsonObject, JsonValue, Message } from "@harborts/core";
 
 import type {
   OpenAIChatCompletionResponse,

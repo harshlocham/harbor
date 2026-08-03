@@ -8,7 +8,7 @@ This guide walks through a complete Harbor agent: install packages, create an `A
 ## 1. Install
 
 ```bash
-pnpm add @harbor/core @harbor/providers
+pnpm add @harborts/core @harborts/providers
 ```
 
 ```bash
@@ -18,7 +18,7 @@ export OPENAI_API_KEY=sk-...
 ## 2. Create a tool
 
 ```ts
-import type { Tool } from "@harbor/core";
+import type { Tool } from "@harborts/core";
 
 const getTime: Tool = {
   name: "get_time",
@@ -36,8 +36,8 @@ const getTime: Tool = {
 ## 3. Create an Agent
 
 ```ts
-import { Agent } from "@harbor/core";
-import { OpenAIProvider } from "@harbor/providers";
+import { Agent } from "@harborts/core";
+import { OpenAIProvider } from "@harborts/providers";
 
 const agent = new Agent({
   name: "quickstart",
@@ -51,7 +51,7 @@ const agent = new Agent({
 ## 4. Create a Runtime and run
 
 ```ts
-import { Runtime } from "@harbor/core";
+import { Runtime } from "@harborts/core";
 
 const runtime = new Runtime();
 
@@ -72,8 +72,8 @@ console.log("messages:", result.messages.length);
 ## Full example
 
 ```ts
-import { Agent, Runtime, type Tool } from "@harbor/core";
-import { OpenAIProvider } from "@harbor/providers";
+import { Agent, Runtime, type Tool } from "@harborts/core";
+import { OpenAIProvider } from "@harborts/providers";
 
 const getTime: Tool = {
   name: "get_time",
@@ -106,7 +106,7 @@ console.log(result.output?.content);
 ```bash
 pnpm install && pnpm build
 export OPENAI_API_KEY=sk-...
-pnpm --filter @harbor/example-quickstart start
+pnpm --filter @harborts/example-quickstart start
 ```
 
 Source: [`examples/quickstart`](https://github.com/harshlocham/harbor/tree/main/examples/quickstart)
