@@ -1,11 +1,12 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig({
-  entry: ["src/index.ts"],
+  entry: ["src/index.ts", "src/openai/index.ts"],
   format: ["esm", "cjs"],
   dts: true,
   sourcemap: true,
   clean: true,
   target: "node20",
   outDir: "dist",
+  tsconfig: "tsconfig.build.json",
 });

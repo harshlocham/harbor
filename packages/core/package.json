@@ -31,7 +31,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@harbor/providers": "workspace:*",
     "@harbor/utils": "workspace:*"
   },
   "devDependencies": {

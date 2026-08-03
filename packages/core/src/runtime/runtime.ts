@@ -91,7 +91,7 @@ export class Runtime {
         options.signal?.throwIfAborted();
         emit({ type: "iteration.start", iteration });
 
-        const request = buildProviderRequest(messages, agent, toolExecutor);
+        const request = buildProviderRequest(messages, agent, toolExecutor, options);
         emit({ type: "provider.request", request });
 
         const providerSpan = trace.startSpan("provider.generate", {
@@ -101,7 +101,7 @@ export class Runtime {
 
         let response;
         try {
-          response = await agent.config.provider.generate(request, context);
+          response = await agent.config.provider.generate(request);
           providerSpan.end();
         } catch (error) {
           providerSpan.end(error);
@@ -233,6 +233,7 @@ function buildProviderRequest(
   messages: Message[],
   agent: Agent,
   toolExecutor: ToolExecutor,
+  options: RunOptions,
 ): ProviderRequest {
   const request: ProviderRequest = {
     messages: messages.map((message) => ({ ...message })),
@@ -246,6 +247,9 @@ function buildProviderRequest(
   }
   if (agent.config.metadata !== undefined) {
     request.metadata = agent.config.metadata;
+  }
+  if (options.signal !== undefined) {
+    request.signal = options.signal;
   }
   return request;
 }

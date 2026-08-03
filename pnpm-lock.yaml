@@ -65,9 +65,6 @@ importers:
 
   packages/core:
     dependencies:
-      '@harbor/providers':
-        specifier: workspace:*
-        version: link:../providers
       '@harbor/utils':
         specifier: workspace:*
         version: link:../utils
@@ -93,6 +90,9 @@ importers:
 
   packages/providers:
     dependencies:
+      '@harbor/core':
+        specifier: workspace:*
+        version: link:../core
       '@harbor/utils':
         specifier: workspace:*
         version: link:../utils

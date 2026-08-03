@@ -12,6 +12,11 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
+    },
+    "./openai": {
+      "types": "./dist/openai/index.d.ts",
+      "import": "./dist/openai/index.js",
+      "require": "./dist/openai/index.cjs"
     }
   },
   "files": [
@@ -30,6 +35,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@harbor/core": "workspace:*",
     "@harbor/utils": "workspace:*"
   },
   "devDependencies": {

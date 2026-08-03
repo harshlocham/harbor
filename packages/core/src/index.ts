@@ -11,10 +11,11 @@ export {
   HarborError,
   MaxIterationsExceededError,
   NotImplementedError,
+  ProviderError,
   ToolError,
   ToolValidationError,
 } from "./errors/index.js";
-export type { ToolErrorCode } from "./errors/index.js";
+export type { ProviderErrorCode, ToolErrorCode } from "./errors/index.js";
 
 export type { Message, MessageRole } from "./message/index.js";
 
@@ -22,12 +23,16 @@ export type { Tool, ToolCall, ToolDefinition, ToolResult } from "./tool/index.js
 export { ToolExecutor } from "./tool/index.js";
 
 export type {
+  ModelInfo,
   ModelProvider,
   MockProviderOptions,
   MockProviderResponse,
+  ProviderCapabilities,
   ProviderFinishReason,
   ProviderRequest,
   ProviderResponse,
+  ProviderResponseFormat,
+  ProviderStreamEvent,
   ProviderToolCall,
   ProviderUsage,
 } from "./provider/index.js";

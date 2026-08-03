@@ -1,3 +1,4 @@
+import type { ProviderError } from "../errors/provider-error.js";
 import type { Message } from "../message/types.js";
 import type { ToolDefinition } from "../tool/types.js";
 import type { JsonObject } from "../types/json.js";
@@ -55,7 +56,109 @@ export interface ProviderUsage {
    * Tokens produced in the completion / output.
    */
   outputTokens?: number;
+
+  /**
+   * Total tokens reported by the provider, when known.
+   */
+  totalTokens?: number;
 }
+
+/**
+ * Feature flags describing what a provider implementation supports.
+ */
+export interface ProviderCapabilities {
+  /**
+   * Whether {@link ModelProvider.stream} is supported.
+   */
+  streaming: boolean;
+
+  /**
+   * Whether tool / function calling is supported.
+   */
+  tools: boolean;
+
+  /**
+   * Whether structured output (`responseFormat`) is supported.
+   *
+   * Reserved for future provider adapters; may be `false` today.
+   */
+  structuredOutput: boolean;
+
+  /**
+   * Whether multimodal / image inputs are supported.
+   */
+  vision?: boolean;
+
+  /**
+   * Whether a dedicated system message role is supported.
+   */
+  systemMessage?: boolean;
+}
+
+/**
+ * Metadata describing a model exposed by a provider.
+ */
+export interface ModelInfo {
+  /**
+   * Provider-specific model identifier.
+   */
+  id: string;
+
+  /**
+   * Human-readable model name.
+   */
+  name?: string;
+
+  /**
+   * Owning provider identifier (e.g. `"mock"`, `"anthropic"`).
+   */
+  provider?: string;
+
+  /**
+   * Maximum context window size in tokens, when known.
+   */
+  contextWindow?: number;
+
+  /**
+   * Maximum output tokens supported by the model, when known.
+   */
+  maxOutputTokens?: number;
+
+  /**
+   * Model-level capability overrides.
+   */
+  capabilities?: Partial<ProviderCapabilities>;
+
+  /**
+   * Arbitrary provider-agnostic metadata.
+   */
+  metadata?: JsonObject;
+}
+
+/**
+ * Structured output request shape.
+ *
+ * Reserved for future compatibility — providers may ignore unsupported formats.
+ */
+export type ProviderResponseFormat =
+  | {
+      /** Free-form natural language output. */
+      type: "text";
+    }
+  | {
+      /** JSON object output without an explicit schema. */
+      type: "json_object";
+    }
+  | {
+      /** JSON output constrained by a JSON Schema-like object. */
+      type: "json_schema";
+      /** Schema name used by the provider when required. */
+      name: string;
+      /** JSON-Schema-like definition. */
+      schema: JsonObject;
+      /** Whether the provider should enforce the schema strictly. */
+      strict?: boolean;
+    };
 
 /**
  * Provider-agnostic request to generate a model response.
@@ -92,6 +195,16 @@ export interface ProviderRequest {
   stopSequences?: string[];
 
   /**
+   * Desired response format for structured output (future-compatible).
+   */
+  responseFormat?: ProviderResponseFormat;
+
+  /**
+   * Abort signal for cooperative cancellation.
+   */
+  signal?: AbortSignal;
+
+  /**
    * Arbitrary provider-agnostic metadata.
    */
   metadata?: JsonObject;
@@ -115,4 +228,58 @@ export interface ProviderResponse {
    * Token usage for the request, when reported.
    */
   usage?: ProviderUsage;
+
+  /**
+   * Model identifier that produced the response, when reported.
+   */
+  model?: string;
+
+  /**
+   * Parsed structured output when `responseFormat` was requested.
+   *
+   * Reserved for future compatibility.
+   */
+  structuredOutput?: JsonObject;
+
+  /**
+   * Arbitrary provider-agnostic metadata.
+   */
+  metadata?: JsonObject;
 }
+
+/**
+ * Events emitted by {@link ModelProvider.stream}.
+ */
+export type ProviderStreamEvent =
+  | {
+      /** Incremental assistant text. */
+      type: "delta";
+      delta: string;
+    }
+  | {
+      /** Incremental tool-call argument fragment. */
+      type: "tool_call_delta";
+      toolCallId: string;
+      name?: string;
+      argumentsDelta?: string;
+    }
+  | {
+      /** A complete assistant message snapshot. */
+      type: "message";
+      message: Message;
+    }
+  | {
+      /** Token usage update. */
+      type: "usage";
+      usage: ProviderUsage;
+    }
+  | {
+      /** Stream completed successfully. */
+      type: "done";
+      response: ProviderResponse;
+    }
+  | {
+      /** Stream failed. */
+      type: "error";
+      error: ProviderError;
+    };

@@ -2,7 +2,7 @@
   "files": [],
   "references": [
     { "path": "packages/utils" },
-    { "path": "packages/providers" },
-    { "path": "packages/core" }
+    { "path": "packages/core" },
+    { "path": "packages/providers" }
   ]
 }

@@ -7,5 +7,5 @@
     "tsBuildInfoFile": "./.tsbuildinfo"
   },
   "include": ["src/**/*.ts"],
-  "references": [{ "path": "../utils" }, { "path": "../providers" }]
+  "references": [{ "path": "../utils" }]
 }
