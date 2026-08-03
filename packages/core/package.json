@@ -1,6 +1,6 @@
 {
   "name": "@harborts/core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Runtime-first AI agent SDK for TypeScript — Agent, Runtime, tools, and provider-agnostic types",
   "license": "MIT",
   "type": "module",
